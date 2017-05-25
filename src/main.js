@@ -1,6 +1,6 @@
 'use strict';
 // Note: There exists lodash/toPairs, alias of lodash/entries, and approximation of Object.entries
-/* istanbul ignore next */
+
 const entries = require('object.entries');
 
 /**
@@ -74,7 +74,7 @@ const baseWhereAssign = (predicate, target, source) =>
  * assignWhere( entry => entry.key.startsWith('a'), {apple: 'Manzana'},  {'bannana': 'Banano'}, {'crab': 'crangrejo'} );
  * // {apple: 'Manzana'}
  */
-const assignWhere = (predicate, target, ...sources) => (
+export default (predicate, target, ...sources) => (
   assignWhereChecker(predicate, target, sources),
   sources
     .filter(e => e)
@@ -83,5 +83,3 @@ const assignWhere = (predicate, target, ...sources) => (
       target
     )
 );
-
-module.exports = assignWhere;

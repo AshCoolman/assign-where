@@ -1,11 +1,8 @@
 'use strict';
-var assert = require('assert');
-var assignWhere = require('./main');
+import assert from 'assert';
+import assignWhere from './main.js';
 
 describe('assertWhere', function() {
-  it('is a function', () => {
-    assert.equal(typeof assignWhere, 'function');
-  });
   let isTrue, isFalse;
   it('setup', () => {
     isTrue = () => true;
@@ -125,7 +122,12 @@ describe('assertWhere', function() {
     var aNull = null;
     var aUndefined = undefined;
     var aFalse = false;
-
+    var isObject = ([key, value]) => typeof value === 'object';
+    var startsWithA = ([ key, value ]) => key === 'a';
+    it('setup', () => {
+      assert.equal(isObject([null, undefined]), false);
+      assert.equal(isObject([null, {}]), true);
+    });
     it('returns same object if predicate function always returns true', () => {
       assert.deepEqual(
         assignWhere(
@@ -175,7 +177,7 @@ describe('assertWhere', function() {
     it('filters on key', () => {
       assert.deepEqual(
         assignWhere(
-          ([ key, value ]) => key === 'a',
+          startsWithA,
           {},
           {a,b,c}
         ),
@@ -185,7 +187,7 @@ describe('assertWhere', function() {
     it('filters on key (multiple sources)', () => {
       assert.deepEqual(
         assignWhere(
-          ([ key, value ]) => key === 'a',
+          startsWithA,
           {},
           {a},
           {b},
@@ -198,7 +200,7 @@ describe('assertWhere', function() {
     it('filters on value', () => {
       assert.deepEqual(
         assignWhere(
-          ([key, value])=>typeof value === 'object',
+          isObject,
           {},
           {a,b,c}
         ),
@@ -208,7 +210,7 @@ describe('assertWhere', function() {
     it('filters on value  (multiple sources)', () => {
       assert.deepEqual(
         assignWhere(
-          ([key, value])=>typeof value === 'object',
+          isObject,
           {},
           {a},
           {b},

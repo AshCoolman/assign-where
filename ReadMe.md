@@ -1,5 +1,7 @@
 # assign-where
 
+* [![Coverage Status](https://coveralls.io/repos/github/AshCoolman/assign-where/badge.svg?branch=feature%2Fcoveralls)](https://coveralls.io/github/AshCoolman/assign-where?branch=feature%2Fcoveralls)
+
 Like [`Object.assign`](https://mdn.io/Object/assign), but key/value assigning is determined by a predicate function
 
 ## Installation
@@ -79,6 +81,7 @@ document.querySelector('[data-test]']); // Works
 * Based on [`Object.assign`](https://mdn.io/Object/assign), and [`Array.filter`](https://mdn.io/Array/filter)
 * `predicate` params based on output of [`Object.entries`](https://mdn.io/Object/entries)
 * Uses [rollupjs](https://rollupjs.org/) & [babeljs](http://babeljs.io/) to build a commonjs module `bundle.js` from `src/main.js`
+* *I suspect the branch coverage should be 100%, I believe [istanbul does not handle babel](https://github.com/jmcriffey/babel-istanbul/issues/56) very well
 
 ## NPM commands
 

@@ -9,6 +9,8 @@ export default {
   plugins: [
     resolve(),
     babel({
+      babelrc: false,
+      presets: ['es2015-rollup'],
       exclude: 'node_modules/**' // only transpile our source code
     })
   ],
