@@ -63,6 +63,13 @@ const MyComp = props =>
     <h1>{props.heading}</h1>
       <p>{props.content}</p>
   </div>
+
+ReactDOM.render(
+  <MyComp data-test data-x data-y />,
+  document.getElementById('root')
+);
+
+document.querySelector('[data-test]']); // Works
 ```
 
 ## Notes
