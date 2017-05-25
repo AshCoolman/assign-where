@@ -1,6 +1,6 @@
 {
   "name": "assign-where",
-  "version": "0.0.1",
+  "version": "0.0.1-dev",
   "description": "Like Object.assign, but use a function to determine if a key/value will be assigned",
   "main": "bundle.js",
   "scripts": {
