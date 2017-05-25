@@ -1,0 +1,33 @@
+{
+  "name": "assign-where",
+  "version": "0.0.1",
+  "description": "Like Object.assign, but use a function to determine if a key/value will be assigned",
+  "main": "bundle.js",
+  "scripts": {
+    "test": "mocha ./src/main.test ",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover _mocha ./src/main.test ",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "postinstall":"npm run build"
+  },
+  "keywords": [
+    "Object",
+    "assign",
+    "extend"
+  ],
+  "author": "Ashley Coolman <writetofish@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-plugin-external-helpers": "6.22.0",
+    "babel-preset-latest": "6.24.1",
+    "istanbul": "0.4.5",
+    "rollup": "0.41.6",
+    "rollup-plugin-babel": "2.7.1",
+    "rollup-plugin-node-resolve": "3.0.0",
+    "rollup-watch": "3.2.2"
+  },
+  "dependencies": {
+    "mocha": "3.4.2",
+    "object.entries": "1.0.4"
+  }
+}
