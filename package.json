@@ -17,6 +17,10 @@
   ],
   "author": "Ashley Coolman <writetofish@gmail.com>",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AshCoolman/assign-where.git"
+  },
   "devDependencies": {
     "babel-plugin-external-helpers": "6.22.0",
     "babel-preset-latest": "6.24.1",
