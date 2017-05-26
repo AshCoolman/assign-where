@@ -29,13 +29,20 @@ Arguments:
 ```
 import assignWhere from 'assign-where';
 
-assignWhere(
-  entry => entry.key.startsWith('a'),
+const target = { existing: 'here'};
+const output = assignWhere(
+  ([key, value]) => key.startsWith('a'),
+  target,
   { apple: 'Manzana'},
   { bannana: 'Banano'},
   { crab: 'crangrejo'}
 );
-// {apple: 'Manzana'}
+
+console.log(output);
+// { existing: "here", apple: "Manzana" }
+
+console.log(target === output);
+// true
 ```
 
 ### On value
@@ -43,13 +50,20 @@ assignWhere(
 ```
 import assignWhere from 'assign-where';
 
-assignWhere(
-  entry => entry.value.endsWith('o'),
+const target = { existing: 'here'};
+const output = assignWhere(
+  ([key, value]) => value.endsWith('o'),
+  target,
   { apple: 'Manzana'},
   { bannana: 'Banano'},
   { crab: 'crangrejo'}
 );
-// { bannana: 'Banano', crab: 'crangrejo'}
+
+console.log(output);
+// { existing: "here", bannana: "Banano", crab: "crangrejo" }
+
+console.log(target === output);
+// true
 ```
 
 ## Why?

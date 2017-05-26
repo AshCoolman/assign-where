@@ -243,4 +243,57 @@ describe('assertWhere', function() {
       );
     });
   });
+  describe('readme example', () => {
+    describe('filters on key', () => {
+      let target = { existing: 'here'}, output;
+      it('executes', () => {
+        output = assignWhere(
+          ([key, value]) => key.startsWith('a'),
+          target,
+          { apple: 'Manzana'},
+          { bannana: 'Banano'},
+          { crab: 'crangrejo'}
+        );
+      })
+      it('assigns correct values', () => {
+        assert.deepEqual(
+          output,
+          {
+            existing: 'here',
+            apple: 'Manzana'
+          }
+        );
+      });
+      it('mutates target', () => {
+        assert.strictEqual(target, output); 
+      });
+    });
+    describe('filters on value', () => {      
+      let target = { existing: 'here'}, output;
+      it('executes', () => {
+        output = assignWhere(
+          ([key, value]) => value.endsWith('o'),
+          target,
+          { apple: 'Manzana'},
+          { bannana: 'Banano'},
+          { crab: 'crangrejo'}
+        );
+      });
+      it('assigns correct values', () => {
+        assert.deepEqual(
+          output,
+          {
+            existing: 'here',
+            bannana: 'Banano',
+            crab: 'crangrejo'
+          }
+        );
+      });
+      it('mutates target', () => {
+        assert.strictEqual(target, output); 
+      });
+    });
+  });
 });
+
+
