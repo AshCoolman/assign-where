@@ -2,7 +2,7 @@
 
 Like [`Object.assign`](https://mdn.io/Object/assign), but key/value assigning is determined by a predicate function
 
-[![Coverage Status](https://coveralls.io/repos/github/AshCoolman/assign-where/badge.svg?branch=feature%2Fcoveralls)](https://coveralls.io/github/AshCoolman/assign-where?branch=feature%2Fcoveralls) _I suspect the branch coverage should be 100%, I believe [istanbul does not handle babel](https://github.com/jmcriffey/babel-istanbul/issues/56) very well_
+[![Coverage Status](https://coveralls.io/repos/github/AshCoolman/assign-where/badge.svg?branch=feature%2Fcoveralls)](https://coveralls.io/github/AshCoolman/assign-where?branch=feature%2Fcoveralls) 
 
 ## Installation
 
@@ -26,7 +26,7 @@ Arguments:
 
 ### On key
 
-```
+```js
 import assignWhere from 'assign-where';
 
 const target = { existing: 'here'};
@@ -47,7 +47,7 @@ console.log(target === output);
 
 ### On value
 
-```
+```js
 import assignWhere from 'assign-where';
 
 const target = { existing: 'here'};
@@ -90,6 +90,7 @@ document.querySelector('[data-test]']); // Works
 
 ## Notes
 
+* I suspect the branch coverage should be 100%, as [istanbul does not handle babel](https://github.com/jmcriffey/babel-istanbul/issues/56) very well
 * `target` is mutated
 * `sources` of `null` and `undefined` are ignored (like [`Object.assign`](https://mdn.io/Object/assign))
 * Based on [`Object.assign`](https://mdn.io/Object/assign), and [`Array.filter`](https://mdn.io/Array/filter)
