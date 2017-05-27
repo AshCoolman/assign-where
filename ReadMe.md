@@ -30,6 +30,7 @@ Arguments:
 import assignWhere from 'assign-where';
 
 const target = { existing: 'here'};
+
 const output = assignWhere(
   ([key, value]) => key.startsWith('a'),
   target,
@@ -51,6 +52,7 @@ console.log(target === output);
 import assignWhere from 'assign-where';
 
 const target = { existing: 'here'};
+
 const output = assignWhere(
   ([key, value]) => value.endsWith('o'),
   target,
@@ -64,6 +66,31 @@ console.log(output);
 
 console.log(target === output);
 // true
+```
+
+### Alternative
+
+Use in-built functions
+
+```js
+let target = { existing: 'here'};
+
+Object
+  .entries(
+    Object.assign(
+      { apple: 'Manzana'},
+      { bannana: 'Banano'},
+      { crab: 'crangrejo'}
+    )
+  ).filter(
+    ([key, value]) => value.endsWith('o')
+  ).forEach(
+    ([key, value]) => target[key] = value
+  );
+
+console.log(target);
+// { existing: "here", bannana: "Banano", crab: "crangrejo" }
+
 ```
 
 ## Why?
@@ -90,11 +117,10 @@ document.querySelector('[data-test]']); // Works
 
 ## Notes
 
-* I suspect the branch coverage should be 100%, as [istanbul does not handle babel](https://github.com/jmcriffey/babel-istanbul/issues/56) very well
-* `target` is mutated
+* Based on [`Object.assign`](https://mdn.io/Object/assign) (`target` is mutated), and [`Array.filter`](https://mdn.io/Array/filter)
 * `sources` of `null` and `undefined` are ignored (like [`Object.assign`](https://mdn.io/Object/assign))
-* Based on [`Object.assign`](https://mdn.io/Object/assign), and [`Array.filter`](https://mdn.io/Array/filter)
 * `predicate` params based on output of [`Object.entries`](https://mdn.io/Object/entries)
+* I suspect the branch coverage should be 100%, as [istanbul does not handle babel](https://github.com/jmcriffey/babel-istanbul/issues/56) very well
 * Uses [rollupjs](https://rollupjs.org/) & [babeljs](http://babeljs.io/) to build a commonjs module `bundle.js` from `src/main.js`
 
 
@@ -121,4 +147,4 @@ npm run build
 
 ### Todo
 
-1. Add test coverage report
+1. Fix coverage
