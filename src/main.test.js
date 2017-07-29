@@ -10,14 +10,22 @@ describe('assertWhere', function() {
   });
   describe('input', function() {
     describe('valid', function() {
-      it('can be invoked ', function() {
-        assignWhere(
-          isTrue, {}
-        );
+      it('invokes with predicate and target', function() {
+        assignWhere(isTrue, {});
+      });
+      it('invokes with predicate, target and source', function() {
+        assignWhere(isTrue, {}, {})
+      });
+      it('invokes with predicate, target and source = null', function() {
+        assignWhere(isTrue, {}, null)
+      });
+      it('invokes with predicate, target, and sources of undefined, null and enumerable objects', function() {
+        assignWhere(isTrue, {}, null, undefined, {});
       });
     });
-    describe('throwing error based on inputs', function() {
-      describe('no params', function() {
+
+    describe('invalid inputs', function() {
+      describe('missing params', function() {
         it('throws error when missing all params', function() {
           assert.throws(
             ()=>assignWhere(),
@@ -26,29 +34,29 @@ describe('assertWhere', function() {
           );
         });
       });
-      describe('if predicate is not function', function() {
-        it('null', function() {
+      describe('non-function predicate', function() {
+        it('throws TypeError when predicate is null', function() {
           assert.throws(
             ()=>assignWhere(null, {}, {}),
             TypeError,
             /assignWhere expects first param to be a function/
           );
         });
-        it('undefined', function() {
+        it('throws TypeError when predicate is undefined', function() {
           assert.throws(
             ()=>assignWhere(undefined, {}, {}),
             TypeError,
             /assignWhere expects first param to be a function/
           );
         });
-        it('string', function() {
+        it('throws TypeError when predicate is a string', function() {
           assert.throws(
             ()=>assignWhere('notfn', {}, {}),
             TypeError,
             /assignWhere expects first param to be a function/
           );
         });
-        it('object', function() {
+        it('throws TypeError when predicate is a object', function() {
           assert.throws(
             ()=>assignWhere({}, {}, {}),
             TypeError,
@@ -56,58 +64,51 @@ describe('assertWhere', function() {
           );
         });
       });
-      describe('if target is not an object', function() {
-        it('object (no error)', function() {
-          assignWhere(isTrue, {}, {})
-        });
-        it('null', function() {
+      describe('target is not an object', function() {
+        it('throws TypeError if target is null', function() {
           assert.throws(
             ()=>assignWhere(isTrue, null, {}),
             TypeError,
-            /assignWhere expects second param to be a non-null object/
+            /Cannot convert null to object/
           );
         });
-        it('undefined', function() {
+        it('throws TypeError if target is undefined', function() {
           assert.throws(
             ()=>assignWhere(isTrue, undefined, {}),
             TypeError,
-            /assignWhere expects second param to be a non-null object/
+            /Cannot convert undefined to object/
           );
         });
-        it('string', function() {
-          assert.throws(
-            ()=>assignWhere(isTrue, 'notobject', {}),
-            TypeError,
-            /assignWhere expects second param to be a non-null object/
+        it('coerces like Object.assign if target is a string', function() {
+          assert.deepEqual(
+            assignWhere(isTrue, 'notobject', {}),
+            Object.assign('notobject', {})
           );
         });
       });
-      describe('if sources are enumerable or null', function() {
-
-        it('object (no error)', function() {
-          assignWhere(isTrue, {}, {})
-        });
-        it('null (no error)', function() {
-          assignWhere(isTrue, {}, null)
-        });
-        it('undefined (no error)', function() {
-          assignWhere(isTrue, {});
-        });
-        it('undefined + null + undefined (no error)', function() {
-          assignWhere(isTrue, {}, null, undefined, {});
-        });
-        it('string', function() {
-          assert.throws(
-            ()=>assignWhere(isTrue, 'notobject', {}),
-            TypeError,
-            /assignWhere expects second param to be a non-null object/
+      describe('sources not being enumerable objects', function() {
+        it('handles single string source like Object.assign', function() {
+          assert.deepEqual(
+            assignWhere(isTrue, {}, 'notobject'),
+            Object.assign({}, 'notobject')
           );
         });
-        it('undefined + null + undefined + string', function() {
-          assert.throws(
-            () => assignWhere(isTrue, {}, null, undefined, {}, 'notObject'),
-            TypeError,
-            /assignWhere expects second param to be a non-null object/
+        it('handles string source like Object.assign', function() {
+          assert.deepEqual(
+            assignWhere(isTrue, {}, null, undefined, {}, 'notObject'),
+            Object.assign({}, null, undefined, {}, 'notObject')
+          );
+        });
+        it('handles number source like Object.assign', function() {
+          assert.deepEqual(
+            assignWhere(isTrue, {}, null, undefined, {}, 1),
+            Object.assign({}, null, undefined, {}, 1)
+          );
+        });
+        it('handles boolean source like Object.assign', function() {
+          assert.deepEqual(
+            assignWhere(isTrue, {}, null, undefined, {}, true, false),
+            Object.assign({}, null, undefined, {}, true, false)
           );
         });
       });
@@ -115,7 +116,7 @@ describe('assertWhere', function() {
   });
   describe('output', function() {
     var a = 'a';
-    var a1 = 'a2';
+    var a1 = 'a1';
     var a2 = 'a2';
     var b = 1;
     var c = {deep: true};
@@ -240,6 +241,21 @@ describe('assertWhere', function() {
           {a: a2}
         ),
         {a:a2}
+      );
+    });
+
+    it('handles arrays', () => {
+      assert.deepEqual(
+        assignWhere(
+          isTrue,
+          {a},
+          [1, 2]
+        ),
+        {
+          a,
+          "0": 1,
+          "1": 2
+        }
       );
     });
   });

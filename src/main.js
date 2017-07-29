@@ -13,20 +13,12 @@ const entries = require('object.entries');
  */
 const assignWhereChecker = (predicate, target, sources) => {
   if (typeof predicate !== 'function') {
-    throw new TypeError(`assignWhere expects first param to be a function, instead got ${predicate} (${typeof predicate}`);
+    throw new TypeError(`assignWhere expected predicate to be a function, instead got ${predicate} (${typeof predicate})`);
   }
-  if (typeof target !== 'object' || target === null) {
-    throw new TypeError(`assignWhere expects second param to be a non-null object, instead got ${target} (${typeof target}`);
+  
+  if (!['object', 'string'].includes(typeof target) || target === null) {
+    throw new TypeError(`assignWhere expected target to be enumerable, instead got ${target} (${typeof target})`);
   }
-  sources
-  .filter(e => e)
-  .forEach(
-    element => {
-      if (typeof element !== 'object') {
-        throw new TypeError(`assignWhere expects sources to be objects (with enumerable keys), instead got ${element} (${typeof element}`);
-      }
-    }
-  )
 }
 
 
@@ -41,7 +33,7 @@ const assignWhereChecker = (predicate, target, sources) => {
  */
 const baseWhereAssign = (predicate, target, source) =>
   
-  /*Object.*/entries(source) 
+  /*Object.*/entries(Object.assign(source))
     // ...ignore null/undefined (Object.assign behavior)...
     .filter( ([key, val]) => typeof val !== 'undefined' && val !== null )
     // ...where predicate passed...
@@ -53,7 +45,7 @@ const baseWhereAssign = (predicate, target, source) =>
         return prev;
       },
       // ...onto initial value
-      target
+      Object.assign(target)
     );
 
 /**
@@ -75,7 +67,7 @@ const baseWhereAssign = (predicate, target, source) =>
  * // {apple: 'Manzana'}
  */
 export default (predicate, target, ...sources) => (
-  assignWhereChecker(predicate, target, sources),
+  assignWhereChecker(predicate, target),
   sources
     .filter(e => e)
     .reduce(
