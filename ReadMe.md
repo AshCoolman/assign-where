@@ -19,8 +19,10 @@ assignWhere( predicate, target, [sources]);
 Arguments:
 
 * `predicate` (function): Takes an array `[key, value]`, and returns bool, This determins if each enumerable key/value should be assigned to `target`
-* `target` (object): The object to be assigned onto (to be mutated)
-* `[sources]` (Array of objects): The source objects
+* `target` (enumerable): The value to be assigned onto (to be mutated)
+* `[sources]` (enumerables): The source values
+
+NOTE: Like Object.assign, assignWhere will attempted to coerce target and sources to objects
 
 ## Examples
 
@@ -142,8 +144,3 @@ npm run dev
 ```
 npm run build
 ```
-
-
-### Todo
-
-1. Fix coverage
