@@ -2,7 +2,7 @@
 
 Like [`Object.assign`](https://mdn.io/Object/assign), but key/value assigning is determined by a predicate function
 
-[![Coverage Status](https://coveralls.io/repos/github/AshCoolman/assign-where/badge.svg?branch=feature%2Fcoveralls)](https://coveralls.io/github/AshCoolman/assign-where?branch=feature%2Fcoveralls) 
+[![Coverage Status](https://coveralls.io/repos/github/AshCoolman/assign-where/badge.svg?branch=master)](https://coveralls.io/github/AshCoolman/assign-where?branch=master) 
 
 ## Installation
 
