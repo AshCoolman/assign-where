@@ -120,7 +120,7 @@ document.querySelector('[data-test]']); // Works
 * Based on [`Object.assign`](https://mdn.io/Object/assign) (`target` is mutated), and [`Array.filter`](https://mdn.io/Array/filter)
 * `sources` of `null` and `undefined` are ignored (like [`Object.assign`](https://mdn.io/Object/assign))
 * `predicate` params based on output of [`Object.entries`](https://mdn.io/Object/entries)
-* I suspect the branch coverage should be 100%, as [istanbul does not handle babel](https://github.com/jmcriffey/babel-istanbul/issues/56) very well
+* Branch coverage seems like it should be 100%, as [istanbul does not handle typeof in babel](https://github.com/gotwarlost/istanbul/issues/582) very well
 * Uses [rollupjs](https://rollupjs.org/) & [babeljs](http://babeljs.io/) to build a commonjs module `bundle.js` from `src/main.js`
 
 
